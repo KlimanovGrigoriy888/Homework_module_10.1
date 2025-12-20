@@ -1,4 +1,5 @@
 import re
+from datetime import datetime as dt
 
 
 def mask_account_card(card_account: str) -> str:
@@ -27,6 +28,17 @@ def mask_account_card(card_account: str) -> str:
     return result
 
 
+def get_date(first_strdate: str) -> str:
+    """Принемает строку в формате "2024-03-11T02:26:18.671407" и возвращает "ДД.ММ.ГГГГ"
+ ("11.03.2024")"""
+
+    formatted_date = dt.strptime(first_strdate, "%Y-%m-%dT%H:%M:%S.%f")
+    second_date = formatted_date.strftime('%d.%m.%Y')
+
+    return second_date
+
+
 if __name__ == "__main__":
 
     print(mask_account_card("Счет 64686473678894779589"))
+    print(get_date("2024-03-11T02:26:18.671407"))
