@@ -1,29 +1,42 @@
 import re
 from datetime import datetime as dt
 
+from masks import get_mask_account, get_mask_card_number
+
 
 def mask_account_card(card_account: str) -> str:
     """Принимает на вход даннве типа название карты и ее номер или счет и его номер,
     возвращает их маску типа: Visa Platinum 7000 XX** **** XXXX, Счет **XXXX"""
 
+    # Возвращаем из буквенной части card_account, английский или русский текст в виде двух списков слов
+    # английских или русских.
     text_list_russian = re.findall(r"\b[а-яА-я]+\b", card_account)
     text_list_english = re.findall(r"\b[a-zA-Z]+\b", card_account)
-    # print(bool(text_list_russian))
-    # print(bool(text_list_english))
+    # Создаем метку это крилица или нет.
+    is_cyrillic = bool(text_list_russian)
 
-    if bool(text_list_russian):
+    # Возвращаем текст в виде строки, для кирилицы и английского отдельно от метки.
+    if is_cyrillic:
         text_string = " ".join(text_list_russian)
     else:
         text_string = " ".join(text_list_english)
-    if bool(text_list_russian):
-        number_list = re.findall(r"\d", card_account)
-        numbers_string = "".join(number_list)
-        result = f"{text_string} **{numbers_string[-4:]}"
 
-    if not bool(text_list_russian):
+    # Фильтруем строку текста по критерию "Счет", опредеяем счет это или карта.
+    # Отфильтровываем только цифры из входныех данных и маскируем с помошью функции из модуля masks,
+    # выводим маску ответа.
+    if text_string == "Счет":
         number_list = re.findall(r"\d", card_account)
         numbers_string = "".join(number_list)
-        result = f"{text_string} {numbers_string[0:4]} {numbers_string[4:6]}** **** {numbers_string[12:]}"
+        check_mask = get_mask_account(numbers_string)
+        result = f"{text_string} {check_mask}"
+        # print(result)
+
+    if text_string != "Счет":
+        number_list = re.findall(r"\d", card_account)
+        numbers_string = "".join(number_list)
+        cart_mask = get_mask_card_number(numbers_string)
+        result = f"{text_string} {cart_mask}"
+        # print(result)
 
     return result
 
@@ -40,5 +53,5 @@ def get_date(first_strdate: str) -> str:
 
 if __name__ == "__main__":
 
-    print(mask_account_card("Счет 64686473678894779589"))
+    print(mask_account_card("Мир 1596837868705199"))
     print(get_date("2024-03-11T02:26:18.671407"))
