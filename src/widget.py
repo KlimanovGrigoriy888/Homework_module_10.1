@@ -1,8 +1,6 @@
 import re
 from datetime import datetime as dt
 
-from masks import get_mask_account, get_mask_card_number
-
 
 def mask_account_card(card_account: str) -> str:
     """Принимает на вход даннве типа название карты и ее номер или счет и его номер,
@@ -24,12 +22,12 @@ def mask_account_card(card_account: str) -> str:
     # Фильтруем строку текста по критерию "Счет", опредеяем счет это или карта.
     # Отфильтровываем только цифры из входныех данных и маскируем с помошью функции из модуля masks,
     # выводим маску ответа.
+    from src.masks import get_mask_account, get_mask_card_number
     if text_string == "Счет":
         number_list = re.findall(r"\d", card_account)
         numbers_string = "".join(number_list)
         check_mask = get_mask_account(numbers_string)
         result = f"{text_string} {check_mask}"
-        # print(result)
 
     if text_string != "Счет":
         number_list = re.findall(r"\d", card_account)
