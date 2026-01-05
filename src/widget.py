@@ -41,13 +41,10 @@ def get_date(first_str_date: str) -> str:
     """Принимает строку в формате "2024-03-11T02:26:18.671407" и возвращает "ДД.ММ.ГГГГ"
  ("11.03.2024")"""
 
-    try:
-        valid_formatted_date = dt.strptime(first_str_date, "%Y-%m-%dT%H:%M:%S.%f")
-        second_date = valid_formatted_date.strftime('%d.%m.%Y')
-    except TypeError("Не правильно ввели данные"):
-        print("Не правильно ввели данные")
-    else:
-        return second_date
+    valid_formatted_date = dt.strptime(first_str_date, "%Y-%m-%dT%H:%M:%S.%f")
+    second_date = valid_formatted_date.strftime('%d.%m.%Y')
+
+    return second_date
 
 
 if __name__ == "__main__":

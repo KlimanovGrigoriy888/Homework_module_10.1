@@ -86,5 +86,5 @@ def my_list_incorrect_date():
 
 
 def test_sort_by_date_wrong_date(my_list_incorrect_date):
-    with pytest.raises(TypeError):
-        sort_by_date(my_list_incorrect_date)
+    with pytest.raises(ValueError):
+        assert sort_by_date(my_list_incorrect_date)

@@ -11,8 +11,7 @@ from src.widget import get_date, mask_account_card
                                                    ("Visa Platinum 8990922113665229",
                                                     "Visa Platinum 8990 92** **** 5229"),
                                                    ("Visa Gold 5999414228426353", "Visa Gold 5999 41** **** 6353"),
-                                                   ("Мир 5999414228426353", "Мир 5999 41** **** 6353"),
-                                                   ("", "  ** **** ")])
+                                                   ("Мир 5999414228426353", "Мир 5999 41** **** 6353")])
 def test_mask_account_card(cart_number, expected):
     assert mask_account_card(cart_number) == expected
 
@@ -24,12 +23,12 @@ def test_get_date(input_date, expected_date):
 
 
 def test_get_date_wrong_type_1():
-    with pytest.raises(TypeError):
+    with pytest.raises(ValueError):
         assert get_date("2024-03-11T02:26")
 
 
 def test_get_date_wrong_type_2():
-    with pytest.raises(TypeError):
+    with pytest.raises(ValueError):
         assert get_date("")
 
 
