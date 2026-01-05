@@ -3,7 +3,7 @@ from datetime import datetime as dt
 
 
 def mask_account_card(card_account: str) -> str:
-    """Принимает на вход даннве типа название карты и ее номер или счет и его номер,
+    """Принимает на вход данные типа название карты и ее номер или счет и его номер,
     возвращает их маску типа: Visa Platinum 7000 XX** **** XXXX, Счет **XXXX"""
 
     # Возвращаем из буквенной части card_account, английский или русский текст в виде двух списков слов
@@ -34,19 +34,20 @@ def mask_account_card(card_account: str) -> str:
         numbers_string = "".join(number_list)
         cart_mask = get_mask_card_number(numbers_string)
         result = f"{text_string} {cart_mask}"
-        # print(result)
-
     return result
 
 
-def get_date(first_strdate: str) -> str:
-    """Принемает строку в формате "2024-03-11T02:26:18.671407" и возвращает "ДД.ММ.ГГГГ"
+def get_date(first_str_date: str) -> str:
+    """Принимает строку в формате "2024-03-11T02:26:18.671407" и возвращает "ДД.ММ.ГГГГ"
  ("11.03.2024")"""
 
-    formatted_date = dt.strptime(first_strdate, "%Y-%m-%dT%H:%M:%S.%f")
-    second_date = formatted_date.strftime('%d.%m.%Y')
-
-    return second_date
+    try:
+        valid_formatted_date = dt.strptime(first_str_date, "%Y-%m-%dT%H:%M:%S.%f")
+        second_date = valid_formatted_date.strftime('%d.%m.%Y')
+    except TypeError("Не правильно ввели данные"):
+        print("Не правильно ввели данные")
+    else:
+        return second_date
 
 
 if __name__ == "__main__":
