@@ -1,6 +1,3 @@
-from string import digits
-
-
 def get_mask_card_number(cart_number: str) -> str:
     """Функция получает номер банковской карты и отображает в формате XXXX XX** **** XXXX"""
 
