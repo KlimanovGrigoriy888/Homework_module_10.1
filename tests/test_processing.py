@@ -38,7 +38,7 @@ def test_filter_by_state_wrong_state_select(my_list, state_select, expected_resu
 
 def test_filter_by_state_not_my_list():
     with pytest.raises(TypeError):
-        assert filter_by_state()
+        filter_by_state()
 
 
 @pytest.mark.parametrize("key_sort, expected_result",
@@ -87,4 +87,4 @@ def my_list_incorrect_date():
 
 def test_sort_by_date_wrong_date(my_list_incorrect_date):
     with pytest.raises(ValueError):
-        assert sort_by_date(my_list_incorrect_date)
+        sort_by_date(my_list_incorrect_date)

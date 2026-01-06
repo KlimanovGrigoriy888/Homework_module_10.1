@@ -13,12 +13,12 @@ def test_get_mask_card_number(cart_number, expected):
 
 def test_get_mask_card_number_wrong_date_1():
     with pytest.raises(TypeError):
-        assert get_mask_card_number()
+        get_mask_card_number()
 
 
 def test_get_mask_card_number_wrong_date_2():
     with pytest.raises(ValueError):
-        assert get_mask_card_number("ABVG")
+        get_mask_card_number("ABVG")
 
 
 @pytest.mark.parametrize("account_number, expected", [("64686473678894779589555", "**9555"),
@@ -30,14 +30,14 @@ def test_get_mask_account(account_number, expected):
 
 def test_get_mask_account_wrong_date_1():
     with pytest.raises(TypeError):
-        assert get_mask_account()
+        get_mask_account()
 
 
 def test_get_mask_account_wrong_date_2():
     with pytest.raises(ValueError):
-        assert get_mask_account("ABVG")
+        get_mask_account("ABVG")
 
 
 def test_get_mask_account_wrong_date_3():
     with pytest.raises(AttributeError):
-        assert get_mask_account(64686473678894779589)
+        get_mask_account(64686473678894779589)

@@ -24,14 +24,14 @@ def test_get_date(input_date, expected_date):
 
 def test_get_date_wrong_type_1():
     with pytest.raises(ValueError):
-        assert get_date("2024-03-11T02:26")
+        get_date("2024-03-11T02:26")
 
 
 def test_get_date_wrong_type_2():
     with pytest.raises(ValueError):
-        assert get_date("")
+        get_date("")
 
 
 def test_get_date_wrong_type_3():
     with pytest.raises(TypeError):
-        assert get_date()
+        get_date()
