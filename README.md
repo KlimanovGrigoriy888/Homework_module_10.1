@@ -48,7 +48,7 @@ potery run pytest --cov
 
 ## Документация:
 
-Для получения дополнительной информации обратитесь к [заданию](https://my.sky.pro/student-cabinet/stream-lesson/199123/homework-requirements).
+Для получения дополнительной информации обратитесь к [заданию](https://my.sky.pro/student-cabinet/stream-lesson/199124/homework-requirements).
 
 ## Лицензия:
 
