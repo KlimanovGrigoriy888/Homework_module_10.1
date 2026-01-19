@@ -14,11 +14,14 @@ def filter_by_currency(list_transactions: list[dict], currency: str) -> Iterable
 def transaction_descriptions(list_transactions: list[dict]) -> Iterable[Any]:
     """Генератор принимает на вход список словарей с транзакциями и возвращает генераторный объект,
      который возвращает описание каждой операции по очереди."""
-    for x in list_transactions:
-        if not x["description"]:
-            raise KeyError
-        else:
-            yield x["description"]
+    if list_transactions == []:
+        raise StopIteration and RuntimeError
+    else:
+        for x in list_transactions:
+            if not x["description"]:
+                raise KeyError
+            else:
+                yield x["description"]
 
 
 def card_number_generator(start_number: int, stop_number: int) -> Iterable:

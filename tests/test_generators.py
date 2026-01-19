@@ -136,9 +136,8 @@ def transactions_not_description():
     ]
 
 
-def test_filter_by_currency(transactions):
+def test_filter_by_currency_usd(transactions):
     currency_usd = "USD"
-    currency_rub = "RUB"
     expected_result_for_usd = [
         {
             "id": 939719570,
@@ -168,7 +167,11 @@ def test_filter_by_currency(transactions):
             "to": "Visa Platinum 8990922113665229",
         },
     ]
+    assert list(filter_by_currency(transactions, currency_usd)) == expected_result_for_usd
 
+
+def test_filter_by_currency_rub(transactions):
+    currency_rub = "RUB"
     expected_result_for_rub = [
         {
             "id": 873106923,
@@ -190,8 +193,8 @@ def test_filter_by_currency(transactions):
         },
     ]
 
-    assert list(filter_by_currency(transactions, currency_usd)) == expected_result_for_usd
     assert list(filter_by_currency(transactions, currency_rub)) == expected_result_for_rub
+
 
 
 def test_filter_by_transactions_empty():
@@ -229,9 +232,14 @@ def test_transaction_descriptions_wrong(transactions_wrong_description):
     assert list(transaction_descriptions(transactions_wrong_description)) == assertion_result
 
 
-def test_transaction_descriptions_empty(transactions_not_description):
+def test_transaction_descriptions_not_description(transactions_not_description):
     with pytest.raises(KeyError):
         list(transaction_descriptions(transactions_not_description))
+
+
+def test_transaction_descriptions_empty():
+    with pytest.raises(StopIteration and RuntimeError):
+        list(transaction_descriptions([]))
 
 
 def test_card_number_generator_end_range():
