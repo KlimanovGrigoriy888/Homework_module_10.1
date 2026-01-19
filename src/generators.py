@@ -1,9 +1,9 @@
-from typing import Iterable
+from typing import Any, Iterable
 
 
-def filter_by_currency(list_transactions: list[dict], currency: str) -> Iterable[dict]:
-    """Функция принимает на вход список словарей, представляющих транзакции и возвращает итератор,
-    который поочередно выдает транзакции, где валюта операции соответствует заданной (например, USD)."""
+def filter_by_currency(list_transactions: list[dict], currency: str) -> Iterable[dict[Any, Any]]:
+    """Функция принимает на вход список словарей, представляющих транзакции и возвращает генераторный объект,
+    который возвращает транзакции, где валюта операции соответствует заданной (например, USD)."""
     if list_transactions == [] or currency == '':
         raise StopIteration
     else:
@@ -11,9 +11,9 @@ def filter_by_currency(list_transactions: list[dict], currency: str) -> Iterable
         return result
 
 
-def transaction_descriptions(list_transactions: list[dict]) -> Iterable:
-    """Генератор, который принимает на вход список словарей с транзакциями и возвращает
-    описание каждой операции по очереди."""
+def transaction_descriptions(list_transactions: list[dict]) -> Iterable[Any]:
+    """Генератор принимает на вход список словарей с транзакциями и возвращает генераторный объект,
+     который возвращает описание каждой операции по очереди."""
     for x in list_transactions:
         if not x["description"]:
             raise KeyError
@@ -21,7 +21,7 @@ def transaction_descriptions(list_transactions: list[dict]) -> Iterable:
             yield x["description"]
 
 
-def card_number_generator(start_number: int, stop_number: int) -> int:
+def card_number_generator(start_number: int, stop_number: int) -> Iterable:
     """Функция генератор выдает номера банковских карт в формате XXXX XXXX XXXX XXXX, где X — цифра номера карты.
     Принимает на вход начальное и конечное значение генерации диапазонов номеров карт. Генератор может сгенерировать
     номера карт в заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999."""
@@ -82,14 +82,14 @@ if __name__ == "__main__":
             "to": "Счет 14211924144426031657",
         },
     ]
+    # Закомментировал вызов функции ниже так как mypy
+    usd_transactions = filter_by_currency(transactions, "USD")
+    for _ in range(3):
+        print(next(iter(usd_transactions)))
 
-    # usd_transactions = filter_by_currency(transactions, "USD")
-    # for _ in range(3):
-    #     print(next(usd_transactions))
+    descriptions = transaction_descriptions(transactions)
+    for _ in range(3):
+        print(next(iter(descriptions)))
 
-    # descriptions = transaction_descriptions(transactions)
-    # for _ in range(5):
-    #     print(next(descriptions))
-    #
-    for card_number in card_number_generator(9999999999999995, 10000000000000000):
+    for card_number in card_number_generator(1, 5):
         print(card_number)
