@@ -14,8 +14,8 @@ def filter_by_currency(list_transactions: list[dict], currency: str) -> Iterable
 def transaction_descriptions(list_transactions: list[dict]) -> Iterable[Any]:
     """Генератор принимает на вход список словарей с транзакциями и возвращает генераторный объект,
      который возвращает описание каждой операции по очереди."""
-    if list_transactions == []:
-        raise StopIteration and RuntimeError
+    if len(list_transactions) == 0:
+        raise RuntimeError
     else:
         for x in list_transactions:
             if not x["description"]:
@@ -37,7 +37,7 @@ def card_number_generator(start_number: int, stop_number: int) -> Iterable:
                 result_number_masks = (
                     f"{gen_number_str[:4]} {gen_number_str[4:8]} {gen_number_str[8:12]} {gen_number_str[12:16]}"
                 )
-            yield result_number_masks
+                yield result_number_masks
 
 
 if __name__ == "__main__":
