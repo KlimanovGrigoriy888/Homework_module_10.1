@@ -28,11 +28,14 @@ def card_number_generator(start_number: int, stop_number: int) -> Iterable:
     """Функция генератор выдает номера банковских карт в формате XXXX XXXX XXXX XXXX, где X — цифра номера карты.
     Принимает на вход начальное и конечное значение генерации диапазонов номеров карт. Генератор может сгенерировать
     номера карт в заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999."""
-    for gen_number in range(start_number, stop_number + 1):
-        if gen_number <= 9999999999999999 and gen_number > 0:
-            gen_number_str = f"{gen_number:016d}"
-            result_number_masks = (
-                f"{gen_number_str[:4]} {gen_number_str[4:8]} {gen_number_str[8:12]} {gen_number_str[12:16]}"
+    if str(start_number).isalpha() or str(stop_number).isalpha():
+        raise TypeError
+    else:
+        for gen_number in range(start_number, stop_number + 1):
+            if gen_number <= 9999999999999999 and gen_number > 0:
+                gen_number_str = f"{gen_number:016d}"
+                result_number_masks = (
+                    f"{gen_number_str[:4]} {gen_number_str[4:8]} {gen_number_str[8:12]} {gen_number_str[12:16]}"
                 )
             yield result_number_masks
 
@@ -85,7 +88,7 @@ if __name__ == "__main__":
             "to": "Счет 14211924144426031657",
         },
     ]
-    # Закомментировал вызов функции ниже так как mypy
+
     usd_transactions = filter_by_currency(transactions, "USD")
     for _ in range(3):
         print(next(iter(usd_transactions)))
@@ -94,5 +97,5 @@ if __name__ == "__main__":
     for _ in range(3):
         print(next(iter(descriptions)))
 
-    for card_number in card_number_generator(ddd, ddd):
+    for card_number in card_number_generator(1, 5):
         print(card_number)

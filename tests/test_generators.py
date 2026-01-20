@@ -377,5 +377,5 @@ def test_card_number_generator(start_num, stop_num, assertion_result):
 
 
 def test_card_number_generator_wrong_date():
-    with pytest.raises(NameError):
-        card_number_generator(aaa, fff)
+    with pytest.raises(TypeError):
+        list(card_number_generator("aaa", "fff"))
