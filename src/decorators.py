@@ -1,10 +1,11 @@
 from functools import wraps
+from typing import Any, Callable, Optional
 
 
-def log(filename: str = None) -> None:
-    def wrapper(func):
+def log(filename: Optional[str] = None) -> Callable:
+    def wrapper(func: Callable) -> Callable:
         @wraps(func)
-        def inner(*args, **kwargs):
+        def inner(*args: Any, **kwargs: Any) -> Any:
             try:
                 result = func(*args, **kwargs)
                 if filename:
@@ -27,9 +28,9 @@ def log(filename: str = None) -> None:
 
 
 if __name__ == "__main__":
-
     @log(filename="mylog.txt")
-    def my_function(x, y):
+    def my_function(x: Any, y: Any) -> Any:
         return x + y
 
-    my_function(2, 0)
+    my_function(2, 3)
+
