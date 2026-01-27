@@ -3,6 +3,10 @@ from typing import Any, Callable, Optional
 
 
 def log(filename: Optional[str] = None) -> Callable:
+    """Декоратор для функции принимает параметр файл Filename, возвращает лог и записывает его в файл Filename:
+    Если принимаемая функция выполнилась без исключений в лог записывается сообщение "my_function ok"
+    Если при исполнении функции возникло исключение в лог записывается сообщение о выпавшем исключении и принимаемые
+    параметры декорируемой функции."""
     def wrapper(func: Callable) -> Callable:
         @wraps(func)
         def inner(*args: Any, **kwargs: Any) -> Any:
@@ -33,4 +37,3 @@ if __name__ == "__main__":
         return x + y
 
     my_function(2, 3)
-
