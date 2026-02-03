@@ -47,7 +47,7 @@ def get_date(first_str_date: str) -> str:
     return second_date
 
 
-if __name__ == "__main__":
-
-    print(mask_account_card("Мир 1596837868705199"))
-    print(get_date("2024-03-11T02:26:18.671407"))
+# if __name__ == "__main__":
+#
+#     print(mask_account_card("Мир 1596837868705199"))
+#     print(get_date("2024-03-11T02:26:18.671407"))
