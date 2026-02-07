@@ -89,13 +89,13 @@ if __name__ == "__main__":
         },
     ]
 
-    usd_transactions = filter_by_currency(transactions, "USD")
-    for _ in range(3):
-        print(next(iter(usd_transactions)))
-
-    descriptions = transaction_descriptions(transactions)
-    for _ in range(3):
-        print(next(iter(descriptions)))
-
-    for card_number in card_number_generator(1, 5):
-        print(card_number)
+    # usd_transactions = filter_by_currency(transactions, "USD")
+    # for _ in range(3):
+    #     print(next(iter(usd_transactions)))
+    #
+    # descriptions = transaction_descriptions(transactions)
+    # for _ in range(3):
+    #     print(next(iter(descriptions)))
+    #
+    # for card_number in card_number_generator(1, 5):
+    #     print(card_number)

@@ -31,9 +31,9 @@ def log(filename: Optional[str] = None) -> Callable:
     return wrapper
 
 
-if __name__ == "__main__":
-    @log(filename="mylog.txt")
-    def my_function(x: Any, y: Any) -> Any:
-        return x + y
-
-    my_function(2, 3)
+# if __name__ == "__main__":
+#     @log(filename="mylog.txt")
+#     def my_function(x: Any, y: Any) -> Any:
+#         return x + y
+#
+#     my_function(2, 3)
