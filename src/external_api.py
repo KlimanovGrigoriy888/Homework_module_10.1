@@ -8,11 +8,11 @@ load_dotenv()
 apikey = os.getenv("API_KEY")
 
 
-def get_course_currency() -> tuple[bool, Any]:
+def get_course_currency() -> tuple[bool, dict[str, Any]]:
     """Функция обращается к внешнему API для получения текущего курса валют по отношению к рублю"""
     url = "https://api.apilayer.com/exchangerates_data/latest?symbols=&base=RUB"
 
-    payload = {}
+    payload: dict[str, Any] = {}
     headers = {"apikey": apikey}
 
     response = requests.request("GET", url, headers=headers, data=payload)

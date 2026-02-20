@@ -6,11 +6,20 @@ from src.utils import get_amount_transactions, get_transactions
 
 
 @patch("os.path.exists")
-@patch("builtins.open", new_callable=mock_open, read_data='[{"id": 1]')
-def test_get_transactions_wrong_json(mock_file, mock_exists):
+@patch("builtins.open", new_callable=mock_open, read_data='[{"id": 1}]')
+def test_get_transactions_valid_data(mock_open, mock_exists):
     mock_exists.return_value = True
-    result = get_transactions("dummy_path.json")
+    path = "dummy_path.json"
+    result = get_transactions(path)
+    assert result == [{"id": 1}]
 
+
+@patch("os.path.exists")
+@patch("builtins.open", new_callable=mock_open, read_data=None)
+def test_get_transactions_not_data(mock_open, mock_exists):
+    mock_exists.return_value = True
+    path = "dummy_path.json"
+    result = get_transactions(path)
     assert result == []
 
 
