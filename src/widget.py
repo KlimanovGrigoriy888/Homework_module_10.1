@@ -40,14 +40,17 @@ def mask_account_card(card_account: str) -> str:
 def get_date(first_str_date: str) -> str:
     """Принимает строку в формате "2024-03-11T02:26:18.671407" и возвращает "ДД.ММ.ГГГГ"
  ("11.03.2024")"""
-
-    valid_formatted_date = dt.strptime(first_str_date, "%Y-%m-%dT%H:%M:%S.%f")
-    second_date = valid_formatted_date.strftime('%d.%m.%Y')
-
-    return second_date
+    try:
+        clean_date = first_str_date.replace('Z', '+00:00')
+        valid_formatted_date = dt.fromisoformat(clean_date)
+        second_date = valid_formatted_date.strftime('%d.%m.%Y')
+        return second_date
+    except ValueError:
+        raise ValueError
 
 
 # if __name__ == "__main__":
-#
-#     print(mask_account_card("Мир 1596837868705199"))
+# #
+#     # print(mask_account_card('Счет 90817634362091276762'))
 #     print(get_date("2024-03-11T02:26:18.671407"))
+#     print(get_date("2020-10-05T10:31:57Z"))

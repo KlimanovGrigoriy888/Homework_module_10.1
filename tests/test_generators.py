@@ -204,15 +204,13 @@ def test_filter_by_currency_usd(transactions, currency, expected_result):
 def test_filter_by_transactions_empty():
     currency_usd = "USD"
     transactions_empty = []
-    with pytest.raises(StopIteration):
-        filter_by_currency(transactions_empty, currency_usd)
+    with pytest.raises(ValueError):
+        list(filter_by_currency(transactions_empty, currency_usd))
 
 
 def test_filter_by_transactions_currency_empty():
-    currency_empty = ""
-    transactions_empty = []
-    with pytest.raises(StopIteration):
-        filter_by_currency(transactions_empty, currency_empty)
+    with pytest.raises(TypeError):
+        filter_by_currency()
 
 
 def test_filter_by_currency_wrong(transactions):

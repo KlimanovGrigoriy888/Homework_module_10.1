@@ -12,7 +12,8 @@ def read_csv(patch_to_file_csv: str) -> list[dict[Any, Any]]:
     if not patch_to_file_csv:
         return [dict()]
     csv_data_df = pd.read_csv(patch_to_file_csv, sep=';')
-    result_list_of_dict = csv_data_df.to_dict(orient="records")
+    df_csv_data_replace_none = csv_data_df.astype(object).where(pd.notnull(csv_data_df), "")
+    result_list_of_dict = df_csv_data_replace_none.to_dict(orient="records")
     return result_list_of_dict
 
 
@@ -21,5 +22,15 @@ def read_excel(patch_to_file_excel: str) -> list[dict[Any, Any]]:
     if not patch_to_file_excel:
         return [dict()]
     excel_data_df = pd.read_excel(patch_to_file_excel)
-    result_list_of_dict = excel_data_df.to_dict(orient='records')
+    df_excel_data_replace_none = excel_data_df.astype(object).where(pd.notnull(excel_data_df), "")
+    result_list_of_dict = df_excel_data_replace_none.to_dict(orient='records')
     return result_list_of_dict
+
+
+if __name__ == "__main__":
+    result_1 = read_csv(PATH_TO_FILE_CSV)
+    print(result_1)
+    print(type(result_1))
+    result_2 = read_excel(PATH_TO_FILE_XLSX)
+    print(result_2)
+    print(type(result_2))

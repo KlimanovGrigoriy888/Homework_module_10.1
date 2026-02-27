@@ -1,7 +1,7 @@
 import json
 import os
 from json import JSONDecodeError
-from typing import Any, Union, cast
+from typing import Any, cast
 
 from src.external_api import get_course_currency
 from src.logger import setup_logging
@@ -27,7 +27,7 @@ def get_transactions(path: str) -> list[dict[Any, Any]]:
             operations = json.load(data_file)
             utils_get_transactions_logger.info("Вывод данных из файла в формате json")
             return cast(list[dict[Any, Any]], operations)
-    except (FileNotFoundError,JSONDecodeError):
+    except (FileNotFoundError, JSONDecodeError):
         utils_get_transactions_logger.error("Ошибка декодирования файла json и вывод пустого списка")
         print("Ошибка декодирования файла и вывод пустого списка")
         return []
@@ -79,11 +79,11 @@ def get_amount_transactions(transactions: list[dict]) -> float | None | Any:
     raise ValueError("No valid transaction data found in the list")
 
 
-if __name__ == "__main__":
-    transactions = get_transactions(PATH_TO_FILE)
-    print(transactions)
-    print(get_amount_transactions([{'id': 441945886, 'state': 'EXECUTED', 'date': '2019-08-26T10:50:58.294041',
-                                    'operationAmount': {'amount': '31957.58',
-                                                        'currency': {'name': 'руб.', 'code': 'RUB'}},
-                                    'description': 'Перевод организации', 'from': 'Maestro 1596837868705199',
-                                    'to': 'Счет 64686473678894779589'}]))
+# if __name__ == "__main__":
+#     transactions = get_transactions(PATH_TO_FILE)
+#     print(transactions)
+#     print(get_amount_transactions([{'id': 441945886, 'state': 'EXECUTED', 'date': '2019-08-26T10:50:58.294041',
+#                                     'operationAmount': {'amount': '31957.58',
+#                                                         'currency': {'name': 'руб.', 'code': 'RUB'}},
+#                                     'description': 'Перевод организации', 'from': 'Maestro 1596837868705199',
+#                                     'to': 'Счет 64686473678894779589'}]))
